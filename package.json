@@ -1,0 +1,70 @@
+{
+  "name": "react-idb-toolkit",
+  "version": "1.0.0",
+  "description": "⚛️ Elegant and easy-to-use React toolkit for managing local data with IndexedDB, powered by [idb](https://github.com/jakearchibald/idb).",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "react",
+    "indexedDB",
+    "indexeddb",
+    "react-toolkit",
+    "idb-toolkit",
+    "idb",
+    "localstorage",
+    "hooks"
+  ],
+  "license": "MIT",
+  "author": "aiyoudiao",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aiyoudiao/react-idb-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aiyoudiao/react-idb-toolkit/issues"
+  },
+  "homepage": "https://github.com/aiyoudiao/react-idb-toolkit#readme",
+  "scripts": {
+    "build": "father build",
+    "test": "vitest",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "dev:demo": "vite",
+    "build:demo": "vite build"
+  },
+  "devDependencies": {
+    "@radix-ui/react-slot": "^1.2.2",
+    "@shadcn/ui": "^0.0.4",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/react": "^8.6.12",
+    "@storybook/react-vite": "^8.6.12",
+    "@tailwindcss/vite": "^4.1.6",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^18.3.21",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "fake-indexeddb": "^6.0.1",
+    "father": "^4.0.0",
+    "jsdom": "^26.1.0",
+    "lucide-react": "^0.509.0",
+    "postcss": "^8.5.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^8.6.12",
+    "tailwind-merge": "^3.3.0",
+    "tailwind-variants": "^1.0.0",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.0.0",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.3",
+    "@types/react-dom": "18"
+  },
+  "dependencies": {
+    "idb": "^8.0.3"
+  }
+}
