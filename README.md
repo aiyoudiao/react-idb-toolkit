@@ -2,9 +2,7 @@
 
 [简体中文](./README.CN.md) | [English](./README.md)
 
----
-
-> ⚛️ Elegant and easy-to-use React toolkit for managing local data with IndexedDB, powered by [idb](https://github.com/jakearchibald/idb).
+> ⚛️ Elegant and easy-to-use React toolkit for managing local data with IndexedDB, powered by [idb](https://github.com/jakearchibald/idb).  
 > A lightweight, simple React hook for storing structured data in the browser via IndexedDB. Supports multiple store initialization, common CRUD operations (`get/set/delete/clear`), with full TypeScript support and test cases.
 
 ![npm](https://img.shields.io/npm/v/react-idb-toolkit?color=blue)
