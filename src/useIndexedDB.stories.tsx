@@ -1,18 +1,31 @@
 import React, { useState } from "react";
 import type { Meta } from "@storybook/react";
-import { useIndexedDB } from "./useIndexedDB";
+import { useIndexedDB } from "./toolkit";
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "./hooks/use-toast";
+import { Toaster } from "./components/ui/toaster";
 
 
 export default {
   title: "Hooks/useIndexedDB",
   component: () => null,
+  parameters: {
+    docs: {}
+  }
 } satisfies Meta;
 
 export const Playground = () => {
+  window.alert = (message: string) => {
+    toast({
+      title: "Alert",
+      description: message,
+      duration: 3000,
+    });
+  }
+
   const [key, setKey] = useState("myKey");
   const [value, setValue] = useState("Hello IndexedDB");
   const [fetched, setFetched] = useState<string | undefined>();
@@ -62,6 +75,8 @@ export const Playground = () => {
       className="flex items-center justify-center h-screen bg-gray-100"
       style={{ height: "100vh" }}
     >
+      
+      <Toaster />
       <Card className="p-6 space-y-6 max-w-xl mx-auto bg-white rounded-xl shadow-md">
         <h2 className="text-xl font-semibold text-center">
           🧪 useIndexedDB Playground

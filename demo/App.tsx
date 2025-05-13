@@ -1,109 +1,158 @@
-import React, { useState } from "react";
-import ReactDOM from 'react-dom/client';
-import '@/index.css'
+import React from "react";
+import {
+  HashRouter  as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import { lazy, Suspense } from "react";
+import {
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  ChevronDown,
+  LoaderCircle,
+  Tally1Icon,
+  Tally2,
+  Tally3,
+} from "lucide-react";
 
-// 如果你没有 UI 库，下面三行可以用原生 HTML 元素替代
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useIndexedDB } from "@/useIndexedDB";
+import { Toaster } from "@/components/ui/toaster"
+
+import "@/index.css";
+import { useToast } from "@/hooks/use-toast";
+
+
+const items = [
+  {
+    title: "IndexedDBContext",
+    url: "/IndexedDBContext",
+    icon: <Tally1Icon className="h-4 w-4" />,
+  },
+  {
+    title: "IndexedDBUtils",
+    url: "/IndexedDBUtils",
+    icon: <Tally2 className="h-4 w-4" />,
+  },
+  {
+    title: "UseIndexedDB",
+    url: "/UseIndexedDB",
+    icon: <Tally3 className="h-4 w-4" />,
+  },
+];
+
+// 使用 React.lazy 来懒加载 Home 和 Chat 组件
+const IndexedDBContext = lazy(() => import("./features/IndexedDBContext"));
+const IndexedDBUtils = lazy(() => import("./features/IndexedDBUtils"));
+const UseIndexedDB = lazy(() => import("./features/UseIndexedDB"));
+
+const LoadingScreen = () => (
+  <div
+    className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900"
+    style={{
+      width: "calc(100vw - 256px)",
+      height: "100vh",
+    }}
+  >
+    <LoaderCircle className="h-16 w-16 animate-spin text-gray-800 dark:text-gray-200" />
+    <p className="mt-4 text-xl text-gray-600 dark:text-gray-400">Loading...</p>
+  </div>
+);
 
 const App = () => {
-  const [key, setKey] = useState("myKey");
-  const [value, setValue] = useState("Hello IndexedDB");
-  const [fetched, setFetched] = useState<string | undefined>();
-  const [allKeys, setAllKeys] = useState<IDBValidKey[]>([]);
-  const [allValues, setAllValues] = useState<string[]>([]);
+  const location = useLocation();
+  const isActive = (to: string) => location.pathname === to;
+  const { toast } = useToast();
+  window.alert = (message: string) => {
+    toast({
+      title: "Alert",
+      description: message,
+      duration: 3000,
+    });
+  }
 
-  const {
-    loading,
-    setItem,
-    getItem,
-    deleteItem,
-    getAll,
-    keys,
-    clear,
-  } = useIndexedDB({
-    dbName: "storybook-db",
-    storeNames: ["demoStore"],
-  });
-
-  const handleSet = async () => {
-    await setItem("demoStore", key, value);
-    alert(`✅ Set "${key}" = "${value}"`);
-  };
-
-  const handleGet = async () => {
-    const result = await getItem("demoStore", key);
-    setFetched(result);
-  };
-
-  const handleDelete = async () => {
-    await deleteItem("demoStore", key);
-    alert(`🗑️ Deleted "${key}"`);
-  };
-
-  const handleGetAll = async () => {
-    const values = await getAll<string>("demoStore");
-    setAllValues(values);
-  };
-
-  const handleKeys = async () => {
-    const k = await keys("demoStore");
-    setAllKeys(k);
-  };
-
-  const handleClear = async () => {
-    await clear("demoStore");
-    alert("🧹 Cleared all entries");
-  };
-
-  if (loading) return <p className="text-center">Loading IndexedDB...</p>;
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100" style={{ height: "100vh" }}>
-      <Card className="p-6 space-y-6 max-w-xl mx-auto bg-white rounded-xl shadow-md">
-      <h2 className="text-xl font-semibold text-center">🧪 useIndexedDB Playground</h2>
-      <p className="text-center">Status: <strong>{loading ? "Loading..." : "Ready ✅"}</strong></p>
-
-      <div className="space-y-4">
-        <Input
-          placeholder="Key"
-          value={key}
-          onChange={(e) => setKey(e.target.value)}
-        />
-        <Input
-          placeholder="Value"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <div className="flex gap-2 flex-wrap">
-          <Button onClick={handleSet}>💾 Set Item</Button>
-          <Button onClick={handleGet}>🔍 Get Item</Button>
-          <Button onClick={handleDelete}>❌ Delete Item</Button>
-          <Button variant="destructive" onClick={handleClear}>🧹 Clear Store</Button>
-        </div>
-      </div>
-
-      <div className="space-x-2 flex">
-        <Button onClick={handleGetAll}>📦 Get All Values</Button>
-        <Button onClick={handleKeys}>🗂️ Get All Keys</Button>
-      </div>
-
-      <div className="space-y-2 mt-6">
-        <p><strong>Fetched value:</strong> <span className="text-blue-700">{fetched ?? "(not found)"}</span></p>
-        <p><strong>All keys:</strong> <code className="text-sm">{JSON.stringify(allKeys)}</code></p>
-        <p><strong>All values:</strong> <code className="text-sm">{JSON.stringify(allValues)}</code></p>
-      </div>
-    </Card>
-    </div>
+    <SidebarProvider>
+      <main className="flex h-screen w-screen">
+        <Collapsible
+          defaultOpen
+          className="group/collapsible"
+          style={{ width: 200 }}
+        >
+          <SidebarGroup>
+            <SidebarGroupLabel asChild>
+              <CollapsibleTrigger>
+                <h2 className="text-base font-semibold">Demo</h2>
+                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+              </CollapsibleTrigger>
+            </SidebarGroupLabel>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link
+                          to={item.url}
+                          className={`flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100`}
+                          style={{
+                            backgroundColor: isActive(item.url) ? "#e2e8f0" : "transparent",
+                            fontWeight: isActive(item.url) ? "600" : "normal",
+                          }}
+                        >
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
+        <Suspense fallback={<LoadingScreen />}>
+          <section
+            style={{
+              width: "calc(100vw - 256px)",
+              height: "100vh",
+            }}
+          >
+            <Routes>
+              <Route index element={<Navigate to="IndexedDBContext" />} />
+              <Route path={`IndexedDBContext`} element={<IndexedDBContext />} />
+              <Route path={`IndexedDBUtils`} element={<IndexedDBUtils />} />
+              <Route path={`UseIndexedDB`} element={<UseIndexedDB />} />
+            </Routes>
+          </section>
+        </Suspense>
+      </main>
+    </SidebarProvider>
   );
 };
 
-const container = document.getElementById('root')!;
+const container = document.getElementById("root")!;
 const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <App />
+      <Toaster />
+    </Router>
   </React.StrictMode>
 );

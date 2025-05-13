@@ -11,8 +11,11 @@
 ![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit)
 
 
+[Visit Example](https://aiyoudiao.github.io/react-idb-toolkit/index.html)
+
 <p align="center">
-    <img src="./source/20250512-192509.gif" alt="Logo" height="300px" >
+    <img src="./source/20250512-192509.gif" alt="Logo" height="400px" >
+    <img src="./source/20250513-180221.jpg" alt="Logo" height="500px" >
 </p>
 
 ---
@@ -50,7 +53,7 @@ const { loading, setItem, getItem, deleteItem, clear, getAll, keys } = useIndexe
 
 useEffect(() => {
   if (!loading) {
-    setItem('myStore', 'username', 'ChatGPT');
+    setItem('myStore', 'userName', 'demo');
   }
 }, [loading]);
 ```
@@ -129,6 +132,12 @@ npm test
 # Start Storybook
 npm run storybook
 ```
+
+<p align="center">
+    <img src="./source/20250513-115715.jpg" alt="Logo" height="350px" >
+    <img src="./source/20250513-124855.jpg" alt="Logo" height="500px" >
+</p>
+
 
 ---
 

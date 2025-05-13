@@ -10,6 +10,13 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+
+    docs: {
+      // 控制是否自动提取源码
+      source: {
+        type: "code", // 'auto' | 'code' | 'dynamic'
+      },
+    },
   },
 };
 

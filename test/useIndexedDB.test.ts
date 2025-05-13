@@ -3,7 +3,7 @@ import "fake-indexeddb/auto";
 
 import { renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { useIndexedDB } from "../src/useIndexedDB";
+import { useIndexedDB } from "../src/toolkit";
 
 const DB_NAME = "TestDB";
 const STORE_NAME = "testStore";
@@ -72,7 +72,7 @@ describe("useIndexedDB hook", () => {
 
     // 在初始化完成前调用方法会抛错
     await expect(result.current.getItem(STORE_NAME, "any")).rejects.toThrow(
-      "IndexedDB is not ready yet."
+      "IndexedDB is not ready yet. Call init() first."
     );
   });
 });

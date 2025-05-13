@@ -11,7 +11,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "declaration": true
   },
   "include": ["src", "test", "demo", "postcss.config.js"]
 }
