@@ -11,7 +11,8 @@
 ![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit)
 
 
-[Visit Example](https://aiyoudiao.github.io/react-idb-toolkit/index.html)
+[Visit Example](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html) |
+[Visit Storybook Example](https://aiyoudiao.github.io/react-idb-toolkit/storybook-static/index.html)
 
 <p align="center">
     <img src="./source/20250512-192509.gif" alt="Logo" height="400px" >
@@ -41,7 +42,7 @@ yarn add react-idb-toolkit
 
 ---
 
-## 🛠️ Usage
+## 🛠️ Hook Usage
 
 ```tsx
 import { useIndexedDB } from 'react-idb-toolkit';
@@ -81,6 +82,116 @@ interface UseIndexedDBReturn {
   keys(store): Promise<IDBValidKey[]>;
 }
 ```
+
+
+
+## 🛠️ Context Usage
+
+```tsx
+import { IndexedDBProvider } from 'react-idb-toolkit';
+
+<IndexedDBProvider
+  options={{
+    dbName: "storybook-db",
+    storeNames: ["demoStore"],
+  }}
+>
+  <PlaygroundContent />
+</IndexedDBProvider>
+```
+
+
+```tsx
+import { useIndexedDBContext } from 'react-idb-toolkit';
+
+const { loading, setItem, getItem, deleteItem, getAll, keys, clear } =
+  useIndexedDBContext();
+
+useEffect(() => {
+  if (!loading) {
+    setItem('demoStore', 'userName', 'demo');
+  }
+}, [loading]);
+```
+
+### ⚙️ Provider Options
+
+```ts
+interface IndexedDBOptions {
+  dbName: string;       // Database name
+  version?: number;     // Database version, default is 1
+  storeNames: string[]; // List of object store names
+}
+
+interface IndexedDBProviderProps {
+  children: ReactNode;
+  options: IndexedDBOptions;
+}
+```
+
+### 📦 Context Return Values
+
+```ts
+interface UseIndexedDBReturn {
+  loading: boolean; //  Indicates if DB is still initializing
+  getItem<T>(store, key): Promise<T | undefined>;
+  setItem<T>(store, key, value): Promise<void>;
+  deleteItem(store, key): Promise<void>;
+  clear(store): Promise<void>;
+  getAll<T>(store): Promise<T[]>;
+  keys(store): Promise<IDBValidKey[]>;
+}
+```
+
+
+## 🛠️ Utils Usage
+
+
+```tsx
+import { initIndexedDB, getIndexedDBHelper } from "./toolkit";
+
+let db: IndexedDBHelper | null = null;
+
+
+useEffect(() => {
+  initIndexedDB({
+    dbName: "storybook-db",
+    storeNames: ["demoStore"],
+  }).then(() => {
+    db = getIndexedDBHelper();
+    const { setItem, getItem, deleteItem, clear, getAll, keys } = db;
+    setItem("demoStore", "userName", "demo");
+  });
+}, []);
+
+```
+
+### ⚙️ initIndexedDB Options
+
+```ts
+interface IndexedDBOptions {
+  dbName: string;       // Database name
+  version?: number;     // Database version, default is 1
+  storeNames: string[]; // List of object store names
+}
+
+```
+
+### 📦 getIndexedDBHelper Return Values
+
+```ts
+interface UseIndexedDBReturn {
+  loading: boolean; //  Indicates if DB is still initializing
+  getItem<T>(store, key): Promise<T | undefined>;
+  setItem<T>(store, key, value): Promise<void>;
+  deleteItem(store, key): Promise<void>;
+  clear(store): Promise<void>;
+  getAll<T>(store): Promise<T[]>;
+  keys(store): Promise<IDBValidKey[]>;
+}
+```
+
+
 
 ---
 

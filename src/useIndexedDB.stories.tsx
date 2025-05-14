@@ -44,7 +44,7 @@ export const Playground = () => {
   };
 
   const handleGet = async () => {
-    const result = await getItem("demoStore", key);
+    const result = await getItem<string>("demoStore", key);
     setFetched(result);
   };
 
@@ -75,7 +75,6 @@ export const Playground = () => {
       className="flex items-center justify-center h-screen bg-gray-100"
       style={{ height: "100vh" }}
     >
-      
       <Toaster />
       <Card className="p-6 space-y-6 max-w-xl mx-auto bg-white rounded-xl shadow-md">
         <h2 className="text-xl font-semibold text-center">

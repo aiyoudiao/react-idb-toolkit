@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Meta } from "@storybook/react";
-import { IndexedDBProvider, useIndexedDBContext } from "./toolkit/IndexedDBContext";
+import { IndexedDBProvider, useIndexedDBContext } from "./toolkit";
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

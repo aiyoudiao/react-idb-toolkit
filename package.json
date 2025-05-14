@@ -30,10 +30,12 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build:storybook": "storybook build -o examples/storybook-static",
     "dev:demo": "vite",
     "build:demo": "vite build",
-    "deploy": "node ./node_modules/gh-pages/bin/gh-pages-clean.js && gh-pages -d storybook-static"
+    "deploy": "node ./node_modules/gh-pages/bin/gh-pages-clean.js && gh-pages -d examples",
+    "build:all": "npm run build && npm run build:demo && npm run build:storybook",
+    "deploy:all": "npm run build:all && npm run deploy"
   },
   "devDependencies": {
     "@radix-ui/react-collapsible": "^1.1.10",

@@ -26,7 +26,7 @@ export default () => {
   };
 
   const handleGet = async () => {
-    const result = await getItem("demoStore", key);
+    const result = await getItem<string>("demoStore", key);
     setFetched(result);
   };
 

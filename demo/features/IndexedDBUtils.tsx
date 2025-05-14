@@ -28,33 +28,33 @@ export default () => {
   }, []);
 
   const handleSet = async () => {
-    await db.setItem("demoStore", key, value);
+    await db?.setItem("demoStore", key, value);
     alert(`✅ Set "${key}" = "${value}"`);
   };
 
   const handleGet = async () => {
-    const result = await db.getItem<string>("demoStore", key);
+    const result = await db?.getItem<string>("demoStore", key);
     setFetched(result);
   };
 
   const handleDelete = async () => {
-    await db.deleteItem("demoStore", key);
+    await db?.deleteItem("demoStore", key);
     alert(`🗑️ Deleted "${key}"`);
   };
 
   const handleClear = async () => {
-    await db.clear("demoStore");
+    await db?.clear("demoStore");
     alert("🧹 Cleared all entries");
   };
 
   const handleKeys = async () => {
-    const result = await db.keys("demoStore");
-    setAllKeys(result);
+    const result = await db?.keys("demoStore");
+    setAllKeys(result as IDBValidKey[]);
   };
 
   const handleGetAll = async () => {
-    const result = await db.getAll<string>("demoStore");
-    setAllValues(result);
+    const result = await db?.getAll<string>("demoStore");
+    setAllValues(result as string[]);
   };
 
   if (loading) return <p className="text-center">Loading IndexedDB...</p>;
