@@ -19,7 +19,9 @@
 
 <p align="center">
     <img src="./source/20250512-192509.gif" alt="Logo" height="400px" >
+    <img src="./source/20250519-192855.gif" alt="Logo" height="400px" >
     <img src="./source/20250513-180221.jpg" alt="Logo" height="500px" >
+    <img src="./source/20250519-192240.jpg" alt="Logo" height="500px" >
 </p>
 
 ---
@@ -147,6 +149,119 @@ interface UseIndexedDBReturn {
 ```
 
 
+## 🛠️ 超级简单的 Hooks 使用示例
+
+```tsx
+import { useIndexedDBState } from 'react-idb-toolkit';
+
+export const CounterExample = () => {
+  const [count, setCount, { loading }] = useIndexedDBState<number>({
+    storeName: "demoStore",
+    key: "counter",
+    defaultValue: 0,
+  });
+
+  return (
+    <div className="p-6 text-center space-y-4">
+      <h2 className="text-xl font-semibold">Persistent Counter</h2>
+      <p className="text-4xl font-bold">{loading ? "..." : count}</p>
+      <div className="flex gap-2 justify-center">
+        <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+        <button variant="outline" onClick={() => setCount(0)}>
+          Reset
+        </button>
+      </div>
+    </div>
+  )
+};
+```
+
+### ⚙️ 超级简单的 Hook 参数
+
+```ts
+interface UseIndexedDBStateOptions<T> {
+  storeName: string;
+  key: IDBValidKey;
+  defaultValue?: T | (() => T);
+  onError?: (error: Error) => void;
+}
+```
+
+### 📦 超级简单的 Hook 返回值
+
+```ts
+[
+  value: T;
+  setValue: React.Dispatch<React.SetStateAction<T>>;
+  {
+    loading: boolean;
+    sync: () => Promise<...>;
+  }
+]
+```
+
+## 🛠️ 超级简单的 Context 使用示例
+
+```tsx
+import {
+  IndexedDBStateProvider,
+  useIndexedDBStateContext,
+} from 'react-idb-toolkit';
+
+
+const DemoComponent = () => {
+  const [value, setValue] = useIndexedDBStateContext<string>("demoKey", "default");
+
+  return (
+    <div className="p-4 space-y-4">
+      <input value={value} onChange={(e) => setValue(e.target.value)} />
+      <p>Current value: {value}</p>
+    </div>
+  );
+};
+
+export const SingleContextUsage = () => (
+  <IndexedDBStateProvider storeName="context-store">
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="p-6 space-y-6 max-w-md w-full">
+        <h2 className="text-xl font-semibold">Context Demo</h2>
+        <DemoComponent />
+      </div>
+    </div>
+  </IndexedDBStateProvider>
+);
+
+```
+
+
+### ⚙️ 超级简单的 Provider 参数
+
+```ts
+interface IndexedDBStateProviderProps {
+  storeName: string;
+  children: React.ReactNode;
+}
+
+// context params
+{
+  key: IDBValidKey,
+  defaultValue?: T
+}
+
+```
+
+### 📦 超级简单的 Context 返回值
+
+```ts
+interface UseIndexedDBStateContextReturn<T> {
+  value: T;
+  updateValue: React.Dispatch<React.SetStateAction<T>>;
+  loading: boolean;
+}
+```
+
+
+
 ## 🛠️ Utils 使用示例
 
 
@@ -248,9 +363,11 @@ npm test
 npm run storybook
 ```
 
+
 <p align="center">
-    <img src="./source/20250513-115715.jpg" alt="Logo" height="350px" >
-    <img src="./source/20250513-124855.jpg" alt="Logo" height="500px" >
+    <img src="./source/20250519-192026.jpg" alt="Logo" height="350px" >
+    <img src="./source/20250519-192637.jpg" alt="Logo" height="350px" >
+    <img src="./source/20250519-192643.jpg" alt="Logo" height="500px" >
 </p>
 
 

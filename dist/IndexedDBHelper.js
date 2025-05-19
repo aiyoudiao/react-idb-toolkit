@@ -201,6 +201,53 @@ export var IndexedDBHelper = /*#__PURE__*/function () {
       }
       return keys;
     }()
+  }, {
+    key: "__mandatoryClose",
+    value: function () {
+      var _mandatoryClose = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(storeNames) {
+        var _iterator2, _step2, storeName;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return this.init();
+            case 2:
+              _iterator2 = _createForOfIteratorHelper(storeNames);
+              _context8.prev = 3;
+              _iterator2.s();
+            case 5:
+              if ((_step2 = _iterator2.n()).done) {
+                _context8.next = 11;
+                break;
+              }
+              storeName = _step2.value;
+              _context8.next = 9;
+              return this.clear(storeName);
+            case 9:
+              _context8.next = 5;
+              break;
+            case 11:
+              _context8.next = 16;
+              break;
+            case 13:
+              _context8.prev = 13;
+              _context8.t0 = _context8["catch"](3);
+              _iterator2.e(_context8.t0);
+            case 16:
+              _context8.prev = 16;
+              _iterator2.f();
+              return _context8.finish(16);
+            case 19:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8, this, [[3, 13, 16, 19]]);
+      }));
+      function __mandatoryClose(_x11) {
+        return _mandatoryClose.apply(this, arguments);
+      }
+      return __mandatoryClose;
+    }()
   }]);
   return IndexedDBHelper;
 }();

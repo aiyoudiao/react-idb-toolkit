@@ -18,4 +18,5 @@ export declare class IndexedDBHelper {
     clear(storeName: string): Promise<void>;
     getAll<T>(storeName: string): Promise<T[]>;
     keys(storeName: string): Promise<IDBValidKey[]>;
+    __mandatoryClose(storeNames: string[]): Promise<void>;
 }

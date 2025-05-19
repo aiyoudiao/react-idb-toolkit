@@ -16,7 +16,9 @@
 
 <p align="center">
     <img src="./source/20250512-192509.gif" alt="Logo" height="400px" >
+    <img src="./source/20250519-192855.gif" alt="Logo" height="400px" >
     <img src="./source/20250513-180221.jpg" alt="Logo" height="500px" >
+    <img src="./source/20250519-192240.jpg" alt="Logo" height="500px" >
 </p>
 
 ---
@@ -73,13 +75,13 @@ interface UseIndexedDBOptions {
 
 ```ts
 interface UseIndexedDBReturn {
-  loading: boolean; // Indicates if DB is still initializing
-  getItem<T>(store, key): Promise<T | undefined>;
-  setItem<T>(store, key, value): Promise<void>;
-  deleteItem(store, key): Promise<void>;
-  clear(store): Promise<void>;
-  getAll<T>(store): Promise<T[]>;
-  keys(store): Promise<IDBValidKey[]>;
+  loading: boolean;
+  getItem: <T>(storeName: string, key: IDBValidKey) => Promise<T | undefined>;
+  setItem: <T>(storeName: string, key: IDBValidKey, value: T) => Promise<void>;
+  deleteItem: (storeName: string, key: IDBValidKey) => Promise<void>;
+  clear: (storeName: string) => Promise<void>;
+  getAll: <T>(storeName: string) => Promise<T[] | undefined>;
+  keys: (storeName: string) => Promise<IDBValidKey[] | undefined>;
 }
 ```
 
@@ -133,13 +135,127 @@ interface IndexedDBProviderProps {
 
 ```ts
 interface UseIndexedDBReturn {
-  loading: boolean; //  Indicates if DB is still initializing
-  getItem<T>(store, key): Promise<T | undefined>;
-  setItem<T>(store, key, value): Promise<void>;
-  deleteItem(store, key): Promise<void>;
-  clear(store): Promise<void>;
-  getAll<T>(store): Promise<T[]>;
-  keys(store): Promise<IDBValidKey[]>;
+  loading: boolean;
+  getItem: <T>(storeName: string, key: IDBValidKey) => Promise<T | undefined>;
+  setItem: <T>(storeName: string, key: IDBValidKey, value: T) => Promise<void>;
+  deleteItem: (storeName: string, key: IDBValidKey) => Promise<void>;
+  clear: (storeName: string) => Promise<void>;
+  getAll: <T>(storeName: string) => Promise<T[] | undefined>;
+  keys: (storeName: string) => Promise<IDBValidKey[] | undefined>;
+}
+```
+
+
+## 🛠️ Supper Simple Hook Usage
+
+```tsx
+import { useIndexedDBState } from 'react-idb-toolkit';
+
+export const CounterExample = () => {
+  const [count, setCount, { loading }] = useIndexedDBState<number>({
+    storeName: "demoStore",
+    key: "counter",
+    defaultValue: 0,
+  });
+
+  return (
+    <div className="p-6 text-center space-y-4">
+      <h2 className="text-xl font-semibold">Persistent Counter</h2>
+      <p className="text-4xl font-bold">{loading ? "..." : count}</p>
+      <div className="flex gap-2 justify-center">
+        <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+        <button variant="outline" onClick={() => setCount(0)}>
+          Reset
+        </button>
+      </div>
+    </div>
+  )
+};
+```
+
+### ⚙️ Supper Simple Hook Options
+
+```ts
+interface UseIndexedDBStateOptions<T> {
+  storeName: string;
+  key: IDBValidKey;
+  defaultValue?: T | (() => T);
+  onError?: (error: Error) => void;
+}
+```
+
+### 📦 Supper Simple Hook Return Values
+
+```ts
+[
+  value: T;
+  setValue: React.Dispatch<React.SetStateAction<T>>;
+  {
+    loading: boolean;
+    sync: () => Promise<...>;
+  }
+]
+```
+
+
+
+## 🛠️ Supper Simple Context Usage
+
+```tsx
+import {
+  IndexedDBStateProvider,
+  useIndexedDBStateContext,
+} from 'react-idb-toolkit';
+
+
+const DemoComponent = () => {
+  const [value, setValue] = useIndexedDBStateContext<string>("demoKey", "default");
+
+  return (
+    <div className="p-4 space-y-4">
+      <input value={value} onChange={(e) => setValue(e.target.value)} />
+      <p>Current value: {value}</p>
+    </div>
+  );
+};
+
+export const SingleContextUsage = () => (
+  <IndexedDBStateProvider storeName="context-store">
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="p-6 space-y-6 max-w-md w-full">
+        <h2 className="text-xl font-semibold">Context Demo</h2>
+        <DemoComponent />
+      </div>
+    </div>
+  </IndexedDBStateProvider>
+);
+
+```
+
+
+### ⚙️ Supper Simple Provider Options
+
+```ts
+interface IndexedDBStateProviderProps {
+  storeName: string;
+  children: React.ReactNode;
+}
+
+// context params
+{
+  key: IDBValidKey,
+  defaultValue?: T
+}
+
+```
+
+### 📦 Supper Simple Context Return Values
+
+```ts
+interface UseIndexedDBStateContextReturn<T> {
+  value: T;
+  updateValue: React.Dispatch<React.SetStateAction<T>>;
+  loading: boolean;
 }
 ```
 
@@ -195,6 +311,9 @@ interface UseIndexedDBReturn {
 
 ---
 
+
+
+
 ## 🧪 Testing
 
 Tests are written using [Vitest](https://vitest.dev), with `fake-indexeddb` to simulate browser environment:
@@ -245,8 +364,9 @@ npm run storybook
 ```
 
 <p align="center">
-    <img src="./source/20250513-115715.jpg" alt="Logo" height="350px" >
-    <img src="./source/20250513-124855.jpg" alt="Logo" height="500px" >
+    <img src="./source/20250519-192026.jpg" alt="Logo" height="350px" >
+    <img src="./source/20250519-192637.jpg" alt="Logo" height="350px" >
+    <img src="./source/20250519-192643.jpg" alt="Logo" height="500px" >
 </p>
 
 
