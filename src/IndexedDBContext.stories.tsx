@@ -9,7 +9,7 @@ import { toast } from "./hooks/use-toast";
 import { Toaster } from "./components/ui/toaster";
 
 export default {
-  title: "Hooks/useIndexedDBContext",
+  title: "Context/IndexedDBContext",
   component: () => null,
   parameters: {
     docs: {}

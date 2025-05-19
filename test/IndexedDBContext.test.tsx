@@ -1,3 +1,4 @@
+// 模拟 IndexedDB
 import 'fake-indexeddb/auto';
 import '@testing-library/jest-dom';
 

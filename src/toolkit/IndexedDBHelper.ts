@@ -72,4 +72,11 @@ export class IndexedDBHelper {
     this.ensureReady();
     return await this.db!.getAllKeys(storeName);
   }
+
+  async __mandatoryClose(storeNames: string[]) {
+    await this.init();
+    for (const storeName of storeNames) {
+      await this.clear(storeName);
+    }
+  }
 }

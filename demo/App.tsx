@@ -29,6 +29,8 @@ import {
   Tally1Icon,
   Tally2,
   Tally3,
+  Tally4,
+  Tally5,
 } from "lucide-react";
 
 import { Toaster } from "@/components/ui/toaster"
@@ -53,12 +55,24 @@ const items = [
     url: "/UseIndexedDB",
     icon: <Tally3 className="h-4 w-4" />,
   },
+  {
+    title: "IndexedDBStateContext",
+    url: "/IndexedDBStateContext",
+    icon: <Tally4 className="h-4 w-4" />,
+  },
+  {
+    title: "UseIndexedDBState",
+    url: "/UseIndexedDBState",
+    icon: <Tally5 className="h-4 w-4" />,
+  },
 ];
 
 // 使用 React.lazy 来懒加载 Home 和 Chat 组件
 const IndexedDBContext = lazy(() => import("./features/IndexedDBContext"));
 const IndexedDBUtils = lazy(() => import("./features/IndexedDBUtils"));
 const UseIndexedDB = lazy(() => import("./features/UseIndexedDB"));
+const IndexedDBStateContext = lazy(() => import("./features/IndexedDBStateContext"));
+const UseIndexedDBState = lazy(() => import("./features/UseIndexedDBState"));
 
 const LoadingScreen = () => (
   <div
@@ -138,6 +152,8 @@ const App = () => {
               <Route path={`IndexedDBContext`} element={<IndexedDBContext />} />
               <Route path={`IndexedDBUtils`} element={<IndexedDBUtils />} />
               <Route path={`UseIndexedDB`} element={<UseIndexedDB />} />
+              <Route path={`IndexedDBStateContext`} element={<IndexedDBStateContext />} />
+              <Route path={`UseIndexedDBState`} element={<UseIndexedDBState />} />
             </Routes>
           </section>
         </Suspense>
@@ -149,10 +165,10 @@ const App = () => {
 const container = document.getElementById("root")!;
 const root = ReactDOM.createRoot(container);
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Router>
       <App />
       <Toaster />
     </Router>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
+    setupFiles: "./testSetup.ts",
     environment: "jsdom",
     include: ["{src,test}/**/*.{test,spec}.?(c|m)[jt]s?(x)"], // 明确指定 src 目录
     exclude: [

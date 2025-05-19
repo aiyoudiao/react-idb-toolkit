@@ -2,77 +2,87 @@
 import "fake-indexeddb/auto";
 
 import { renderHook, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
 import { useIndexedDB } from "../src/toolkit";
 
-const DB_NAME = "TestDB";
-const STORE_NAME = "testStore";
+const DB_NAME = "HookDB";
+const STORE_NAME = "HookStore";
 
 describe("useIndexedDB hook", () => {
-  beforeEach(() => {
-    // 每次测试前清除数据库
-    indexedDB.deleteDatabase(DB_NAME);
-  });
-
-  test("should initialize and set/get/delete/clear data correctly", async () => {
+  test("should initialize and perform basic CRUD", async () => {
     const { result } = renderHook(() =>
-      useIndexedDB({
-        dbName: DB_NAME,
-        storeNames: [STORE_NAME],
-      })
+      useIndexedDB({ dbName: DB_NAME, storeNames: [STORE_NAME] })
     );
 
     await waitFor(() => {
       expect(result.current.loading).toBe(false);
     });
 
-    // 设置一个 key
-    await result.current.setItem(STORE_NAME, "foo", "bar");
+    await result.current.setItem(STORE_NAME, "user1", { name: "Bob" });
 
-    // 获取 key
-    let value: string | undefined;
-    value = await result.current.getItem(STORE_NAME, "foo");
-    expect(value).toBe("bar");
+    const user = await result.current.getItem<{ name: string }>(
+      STORE_NAME,
+      "user1"
+    );
+    expect(user).toEqual({ name: "Bob" });
 
-    // 获取所有 key
-    let all: string[] = [];
-    all = await result.current.getAll(STORE_NAME);
-    expect(all).toEqual(["bar"]);
-
-    // 获取 keys
-    let keys: IDBValidKey[] = [];
-    keys = await result.current.keys(STORE_NAME);
-    expect(keys).toContain("foo");
-
-    // 删除 key
-    await result.current.deleteItem(STORE_NAME, "foo");
-
-    // 确保已删除
-    let deletedValue: string | undefined;
-    deletedValue = await result.current.getItem(STORE_NAME, "foo");
-    expect(deletedValue).toBeUndefined();
-
-    // 清空测试
-    await result.current.setItem(STORE_NAME, "a", 1);
-    await result.current.setItem(STORE_NAME, "b", 2);
-    await result.current.clear(STORE_NAME);
-
-    let cleared: number[] = [];
-    cleared = await result.current.getAll(STORE_NAME);
-    expect(cleared).toHaveLength(0);
+    await result.current.deleteItem(STORE_NAME, "user1");
+    const deleted = await result.current.getItem(STORE_NAME, "user1");
+    expect(deleted).toBeUndefined();
   });
 
-  test("should throw error if used before DB is ready", async () => {
+  test("should clear the store", async () => {
     const { result } = renderHook(() =>
-      useIndexedDB({
-        dbName: DB_NAME,
-        storeNames: [STORE_NAME],
-      })
+      useIndexedDB({ dbName: DB_NAME, storeNames: [STORE_NAME] })
     );
 
-    // 在初始化完成前调用方法会抛错
-    await expect(result.current.getItem(STORE_NAME, "any")).rejects.toThrow(
-      "IndexedDB is not ready yet. Call init() first."
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    await result.current.setItem(STORE_NAME, "a", 1);
+    await result.current.setItem(STORE_NAME, "b", 2);
+
+    await result.current.clear(STORE_NAME);
+
+    const all = await result.current.getAll(STORE_NAME);
+    expect(all).toEqual([]);
+  });
+
+  test("should return all keys", async () => {
+    const { result } = renderHook(() =>
+      useIndexedDB({ dbName: DB_NAME, storeNames: [STORE_NAME] })
     );
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    await result.current.setItem(STORE_NAME, "x1", "hello");
+    await result.current.setItem(STORE_NAME, "x2", "world");
+
+    const keys = await result.current.keys(STORE_NAME);
+    expect(keys?.sort()).toEqual(["x1", "x2"]);
+  });
+
+  test("should handle options change", async () => {
+    const { result, rerender } = renderHook((props) => useIndexedDB(props), {
+      initialProps: { dbName: DB_NAME, storeNames: [STORE_NAME] },
+    });
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    // 更改配置
+    const newOptions = {
+      ...{ dbName: DB_NAME, storeNames: [STORE_NAME] },
+      dbName: "NewHookDB",
+    };
+    rerender(newOptions);
+
+    // 验证新数据库初始化
+    await waitFor(() => expect(result.current.loading).toBe(false));
+    await result.current.setItem(STORE_NAME, "key1", "value1");
+    const value = await result.current.getItem<string>(STORE_NAME, "key1");
+    expect(value).toBe("value1");
   });
 });

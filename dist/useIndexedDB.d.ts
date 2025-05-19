@@ -8,7 +8,7 @@ export interface UseIndexedDBReturn {
     setItem: <T>(storeName: string, key: IDBValidKey, value: T) => Promise<void>;
     deleteItem: (storeName: string, key: IDBValidKey) => Promise<void>;
     clear: (storeName: string) => Promise<void>;
-    getAll: <T>(storeName: string) => Promise<T[]>;
-    keys: (storeName: string) => Promise<IDBValidKey[]>;
+    getAll: <T>(storeName: string) => Promise<T[] | undefined>;
+    keys: (storeName: string) => Promise<IDBValidKey[] | undefined>;
 }
 export declare function useIndexedDB(options: IndexedDBOptions): UseIndexedDBReturn;

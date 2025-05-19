@@ -8,179 +8,153 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-/**
- * @description useIndexedDB is a custom React hook that provides a simple interface for interacting with IndexedDB.
- */
+import { useState, useEffect, useCallback } from "react";
+import { useIndexedDB } from "./useIndexedDB"; // 修改为实际的路径
 
-import { useEffect, useState, useRef, useCallback } from "react";
-import { IndexedDBHelper } from "./IndexedDBHelper";
-export function useIndexedDB(options) {
-  var _useState = useState(true),
+export function useIndexedDBState(options) {
+  var storeName = options.storeName,
+    key = options.key,
+    defaultValue = options.defaultValue,
+    _options$onError = options.onError,
+    onError = _options$onError === void 0 ? function (error) {
+      return console.error("IndexedDB Error:", error);
+    } : _options$onError;
+  var _useIndexedDB = useIndexedDB({
+      dbName: storeName,
+      storeNames: [storeName]
+    }),
+    loading = _useIndexedDB.loading,
+    getItem = _useIndexedDB.getItem,
+    setItem = _useIndexedDB.setItem;
+  var _useState = useState(function () {
+      var resolvedValue = typeof defaultValue === "function" ? defaultValue() : defaultValue;
+      return resolvedValue;
+    }),
     _useState2 = _slicedToArray(_useState, 2),
-    loading = _useState2[0],
-    setLoading = _useState2[1];
-  var dbRef = useRef(null);
+    state = _useState2[0],
+    setState = _useState2[1];
+  var _useState3 = useState(true),
+    _useState4 = _slicedToArray(_useState3, 2),
+    isInitializing = _useState4[0],
+    setIsInitializing = _useState4[1];
+
+  // 初始化状态
   useEffect(function () {
-    var db = new IndexedDBHelper(options);
-    db.init().then(function () {
-      dbRef.current = db;
-      setLoading(false);
-    }).catch(function (err) {
-      console.error("Failed to initialize IndexedDBHelper:", err);
-      setLoading(false);
-    });
-  }, [options]);
-  var getItem = useCallback( /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(storeName, key) {
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            if (dbRef.current) {
-              _context.next = 2;
+    if (loading) return; // 如果数据库还在加载中，则不执行初始化
+
+    var initialize = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var storedValue;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return getItem(storeName, key);
+            case 3:
+              storedValue = _context.sent;
+              if (!(storedValue !== undefined)) {
+                _context.next = 8;
+                break;
+              }
+              setState(storedValue);
+              _context.next = 11;
               break;
-            }
-            return _context.abrupt("return");
-          case 2:
-            _context.next = 4;
-            return dbRef.current.getItem(storeName, key);
-          case 4:
-            return _context.abrupt("return", _context.sent);
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee);
-    }));
-    return function (_x, _x2) {
-      return _ref.apply(this, arguments);
-    };
-  }(), [loading, dbRef.current]);
-  var setItem = useCallback( /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(storeName, key, value) {
+            case 8:
+              if (!(defaultValue !== undefined)) {
+                _context.next = 11;
+                break;
+              }
+              _context.next = 11;
+              return setItem(storeName, key, state);
+            case 11:
+              _context.next = 16;
+              break;
+            case 13:
+              _context.prev = 13;
+              _context.t0 = _context["catch"](0);
+              onError(_context.t0);
+            case 16:
+              _context.prev = 16;
+              setIsInitializing(false);
+              return _context.finish(16);
+            case 19:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 13, 16, 19]]);
+      }));
+      return function initialize() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+    initialize();
+  }, [loading]); // 只在初始化完成后运行
+
+  // 状态同步方法
+  var setDBState = useCallback( /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(value) {
+      var newValue;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
-            if (dbRef.current) {
-              _context2.next = 2;
-              break;
-            }
-            return _context2.abrupt("return");
-          case 2:
-            _context2.next = 4;
-            return dbRef.current.setItem(storeName, key, value);
-          case 4:
+            _context2.prev = 0;
+            newValue = value instanceof Function ? value(state) : value; // 先更新本地状态
+            setState(newValue);
+
+            // 异步更新数据库
+            _context2.next = 5;
+            return setItem(storeName, key, newValue);
+          case 5:
+            _context2.next = 11;
+            break;
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            onError(_context2.t0);
+            // 回滚到之前的状态
+            setState(state);
+          case 11:
           case "end":
             return _context2.stop();
         }
-      }, _callee2);
+      }, _callee2, null, [[0, 7]]);
     }));
-    return function (_x3, _x4, _x5) {
+    return function (_x) {
       return _ref2.apply(this, arguments);
     };
-  }(), [loading, dbRef.current]);
-  var deleteItem = useCallback( /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(storeName, key) {
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-        while (1) switch (_context3.prev = _context3.next) {
-          case 0:
-            if (dbRef.current) {
-              _context3.next = 2;
+  }(), [storeName, key, setItem, state]);
+  return [state, setDBState, {
+    loading: loading || isInitializing,
+    /** 手动同步最新数据库状态 */
+    sync: function () {
+      var _sync = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var storedValue;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
+              return getItem(storeName, key);
+            case 3:
+              storedValue = _context3.sent;
+              if (storedValue !== undefined) setState(storedValue);
+              _context3.next = 10;
               break;
-            }
-            return _context3.abrupt("return");
-          case 2:
-            _context3.next = 4;
-            return dbRef.current.deleteItem(storeName, key);
-          case 4:
-          case "end":
-            return _context3.stop();
-        }
-      }, _callee3);
-    }));
-    return function (_x6, _x7) {
-      return _ref3.apply(this, arguments);
-    };
-  }(), [loading, dbRef.current]);
-  var clear = useCallback( /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(storeName) {
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) switch (_context4.prev = _context4.next) {
-          case 0:
-            if (dbRef.current) {
-              _context4.next = 2;
-              break;
-            }
-            return _context4.abrupt("return");
-          case 2:
-            _context4.next = 4;
-            return dbRef.current.clear(storeName);
-          case 4:
-          case "end":
-            return _context4.stop();
-        }
-      }, _callee4);
-    }));
-    return function (_x8) {
-      return _ref4.apply(this, arguments);
-    };
-  }(), [loading, dbRef.current]);
-  var getAll = useCallback( /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(storeName) {
-      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-        while (1) switch (_context5.prev = _context5.next) {
-          case 0:
-            if (dbRef.current) {
-              _context5.next = 2;
-              break;
-            }
-            return _context5.abrupt("return");
-          case 2:
-            _context5.next = 4;
-            return dbRef.current.getAll(storeName);
-          case 4:
-            return _context5.abrupt("return", _context5.sent);
-          case 5:
-          case "end":
-            return _context5.stop();
-        }
-      }, _callee5);
-    }));
-    return function (_x9) {
-      return _ref5.apply(this, arguments);
-    };
-  }(), [loading, dbRef.current]);
-  var keys = useCallback( /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(storeName) {
-      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-        while (1) switch (_context6.prev = _context6.next) {
-          case 0:
-            if (dbRef.current) {
-              _context6.next = 2;
-              break;
-            }
-            return _context6.abrupt("return");
-          case 2:
-            _context6.next = 4;
-            return dbRef.current.keys(storeName);
-          case 4:
-            return _context6.abrupt("return", _context6.sent);
-          case 5:
-          case "end":
-            return _context6.stop();
-        }
-      }, _callee6);
-    }));
-    return function (_x10) {
-      return _ref6.apply(this, arguments);
-    };
-  }(), [loading, dbRef.current]);
-  return {
-    loading: loading,
-    getItem: getItem,
-    setItem: setItem,
-    deleteItem: deleteItem,
-    clear: clear,
-    getAll: getAll,
-    keys: keys
-  };
+            case 7:
+              _context3.prev = 7;
+              _context3.t0 = _context3["catch"](0);
+              onError(_context3.t0);
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[0, 7]]);
+      }));
+      function sync() {
+        return _sync.apply(this, arguments);
+      }
+      return sync;
+    }()
+  }];
 }
