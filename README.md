@@ -2,14 +2,13 @@
 
 [简体中文](./README.CN.md) | [English](./README.md)
 
-> ⚛️ Elegant and easy-to-use React toolkit for managing local data with IndexedDB, powered by [idb](https://github.com/jakearchibald/idb).  
+> ⚛️ Elegant and easy-to-use React toolkit for managing local data with IndexedDB, powered by [idb](https://github.com/jakearchibald/idb).
 > A lightweight, simple React hook for storing structured data in the browser via IndexedDB. Supports multiple store initialization, common CRUD operations (`get/set/delete/clear`), with full TypeScript support and test cases.
 
 ![npm](https://img.shields.io/npm/v/react-idb-toolkit?color=blue)
 ![license](https://img.shields.io/github/license/aiyoudiao/react-idb-toolkit)
 ![issues](https://img.shields.io/github/issues/aiyoudiao/react-idb-toolkit)
 ![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit)
-
 
 [Visit Example](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html) |
 [Visit Storybook Example](https://aiyoudiao.github.io/react-idb-toolkit/storybook-static/index.html)
@@ -45,6 +44,8 @@ yarn add react-idb-toolkit
 ---
 
 ## 🛠️ Hook Usage
+
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB)
 
 ```tsx
 import { useIndexedDB } from 'react-idb-toolkit';
@@ -85,9 +86,10 @@ interface UseIndexedDBReturn {
 }
 ```
 
-
-
 ## 🛠️ Context Usage
+
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext)
+
 
 ```tsx
 import { IndexedDBProvider } from 'react-idb-toolkit';
@@ -101,7 +103,6 @@ import { IndexedDBProvider } from 'react-idb-toolkit';
   <PlaygroundContent />
 </IndexedDBProvider>
 ```
-
 
 ```tsx
 import { useIndexedDBContext } from 'react-idb-toolkit';
@@ -145,8 +146,10 @@ interface UseIndexedDBReturn {
 }
 ```
 
-
 ## 🛠️ Supper Simple Hook Usage
+
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDBState)
+
 
 ```tsx
 import { useIndexedDBState } from 'react-idb-toolkit';
@@ -197,9 +200,9 @@ interface UseIndexedDBStateOptions<T> {
 ]
 ```
 
-
-
 ## 🛠️ Supper Simple Context Usage
+
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBStateContext)
 
 ```tsx
 import {
@@ -232,7 +235,6 @@ export const SingleContextUsage = () => (
 
 ```
 
-
 ### ⚙️ Supper Simple Provider Options
 
 ```ts
@@ -259,9 +261,9 @@ interface UseIndexedDBStateContextReturn<T> {
 }
 ```
 
-
 ## 🛠️ Utils Usage
 
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBUtils)
 
 ```tsx
 import { initIndexedDB, getIndexedDBHelper } from "./toolkit";
@@ -307,12 +309,7 @@ interface UseIndexedDBReturn {
 }
 ```
 
-
-
 ---
-
-
-
 
 ## 🧪 Testing
 
@@ -368,7 +365,6 @@ npm run storybook
     <img src="./source/20250519-192637.jpg" alt="Logo" height="350px" >
     <img src="./source/20250519-192643.jpg" alt="Logo" height="500px" >
 </p>
-
 
 ---
 

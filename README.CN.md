@@ -50,6 +50,9 @@ yarn add react-idb-toolkit
 
 ## 🛠️ Hooks 使用示例
 
+[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB)
+
+
 ```tsx
 import { useIndexedDB } from 'react-idb-toolkit';
 
@@ -91,6 +94,11 @@ interface UseIndexedDBReturn {
 
 
 ## 🛠️ Context 使用示例
+
+
+[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext)
+
+
 
 ```tsx
 import { IndexedDBProvider } from 'react-idb-toolkit';
@@ -151,6 +159,12 @@ interface UseIndexedDBReturn {
 
 ## 🛠️ 超级简单的 Hooks 使用示例
 
+
+[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDBState)
+
+
+
+
 ```tsx
 import { useIndexedDBState } from 'react-idb-toolkit';
 
@@ -201,6 +215,8 @@ interface UseIndexedDBStateOptions<T> {
 ```
 
 ## 🛠️ 超级简单的 Context 使用示例
+
+[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBStateContext)
 
 ```tsx
 import {
@@ -264,6 +280,7 @@ interface UseIndexedDBStateContextReturn<T> {
 
 ## 🛠️ Utils 使用示例
 
+[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBUtils)
 
 ```tsx
 import { initIndexedDB, getIndexedDBHelper } from "./toolkit";
