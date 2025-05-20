@@ -8,16 +8,13 @@
 ![npm](https://img.shields.io/npm/v/react-idb-toolkit?color=blue)
 ![license](https://img.shields.io/github/license/aiyoudiao/react-idb-toolkit)
 ![issues](https://img.shields.io/github/issues/aiyoudiao/react-idb-toolkit)
-![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit)
+<!-- ![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit) -->
 
 [Visit Example](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html) |
 [Visit Storybook Example](https://aiyoudiao.github.io/react-idb-toolkit/storybook-static/index.html)
 
 <p align="center">
     <img src="./source/20250512-192509.gif" alt="Logo" height="400px" >
-    <img src="./source/20250519-192855.gif" alt="Logo" height="400px" >
-    <img src="./source/20250513-180221.jpg" alt="Logo" height="500px" >
-    <img src="./source/20250519-192240.jpg" alt="Logo" height="500px" >
 </p>
 
 ---
@@ -43,108 +40,6 @@ yarn add react-idb-toolkit
 
 ---
 
-## 🛠️ Hook Usage
-
-[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB)
-
-```tsx
-import { useIndexedDB } from 'react-idb-toolkit';
-
-const { loading, setItem, getItem, deleteItem, clear, getAll, keys } = useIndexedDB({
-  dbName: 'myDatabase',
-  storeNames: ['myStore'],
-});
-
-useEffect(() => {
-  if (!loading) {
-    setItem('myStore', 'userName', 'demo');
-  }
-}, [loading]);
-```
-
-### ⚙️ Hook Options
-
-```ts
-interface UseIndexedDBOptions {
-  dbName: string;       // Database name
-  version?: number;     // Database version, default is 1
-  storeNames: string[]; // List of object store names
-}
-```
-
-### 📦 Hook Return Values
-
-```ts
-interface UseIndexedDBReturn {
-  loading: boolean;
-  getItem: <T>(storeName: string, key: IDBValidKey) => Promise<T | undefined>;
-  setItem: <T>(storeName: string, key: IDBValidKey, value: T) => Promise<void>;
-  deleteItem: (storeName: string, key: IDBValidKey) => Promise<void>;
-  clear: (storeName: string) => Promise<void>;
-  getAll: <T>(storeName: string) => Promise<T[] | undefined>;
-  keys: (storeName: string) => Promise<IDBValidKey[] | undefined>;
-}
-```
-
-## 🛠️ Context Usage
-
-[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext)
-
-
-```tsx
-import { IndexedDBProvider } from 'react-idb-toolkit';
-
-<IndexedDBProvider
-  options={{
-    dbName: "storybook-db",
-    storeNames: ["demoStore"],
-  }}
->
-  <PlaygroundContent />
-</IndexedDBProvider>
-```
-
-```tsx
-import { useIndexedDBContext } from 'react-idb-toolkit';
-
-const { loading, setItem, getItem, deleteItem, getAll, keys, clear } =
-  useIndexedDBContext();
-
-useEffect(() => {
-  if (!loading) {
-    setItem('demoStore', 'userName', 'demo');
-  }
-}, [loading]);
-```
-
-### ⚙️ Provider Options
-
-```ts
-interface IndexedDBOptions {
-  dbName: string;       // Database name
-  version?: number;     // Database version, default is 1
-  storeNames: string[]; // List of object store names
-}
-
-interface IndexedDBProviderProps {
-  children: ReactNode;
-  options: IndexedDBOptions;
-}
-```
-
-### 📦 Context Return Values
-
-```ts
-interface UseIndexedDBReturn {
-  loading: boolean;
-  getItem: <T>(storeName: string, key: IDBValidKey) => Promise<T | undefined>;
-  setItem: <T>(storeName: string, key: IDBValidKey, value: T) => Promise<void>;
-  deleteItem: (storeName: string, key: IDBValidKey) => Promise<void>;
-  clear: (storeName: string) => Promise<void>;
-  getAll: <T>(storeName: string) => Promise<T[] | undefined>;
-  keys: (storeName: string) => Promise<IDBValidKey[] | undefined>;
-}
-```
 
 ## 🛠️ Supper Simple Hook Usage
 
@@ -261,6 +156,110 @@ interface UseIndexedDBStateContextReturn<T> {
 }
 ```
 
+
+## 🛠️ Hook Usage
+
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB)
+
+```tsx
+import { useIndexedDB } from 'react-idb-toolkit';
+
+const { loading, setItem, getItem, deleteItem, clear, getAll, keys } = useIndexedDB({
+  dbName: 'myDatabase',
+  storeNames: ['myStore'],
+});
+
+useEffect(() => {
+  if (!loading) {
+    setItem('myStore', 'userName', 'demo');
+  }
+}, [loading]);
+```
+
+### ⚙️ Hook Options
+
+```ts
+interface UseIndexedDBOptions {
+  dbName: string;       // Database name
+  version?: number;     // Database version, default is 1
+  storeNames: string[]; // List of object store names
+}
+```
+
+### 📦 Hook Return Values
+
+```ts
+interface UseIndexedDBReturn {
+  loading: boolean;
+  getItem: <T>(storeName: string, key: IDBValidKey) => Promise<T | undefined>;
+  setItem: <T>(storeName: string, key: IDBValidKey, value: T) => Promise<void>;
+  deleteItem: (storeName: string, key: IDBValidKey) => Promise<void>;
+  clear: (storeName: string) => Promise<void>;
+  getAll: <T>(storeName: string) => Promise<T[] | undefined>;
+  keys: (storeName: string) => Promise<IDBValidKey[] | undefined>;
+}
+```
+
+## 🛠️ Context Usage
+
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext)
+
+
+```tsx
+import { IndexedDBProvider } from 'react-idb-toolkit';
+
+<IndexedDBProvider
+  options={{
+    dbName: "storybook-db",
+    storeNames: ["demoStore"],
+  }}
+>
+  <PlaygroundContent />
+</IndexedDBProvider>
+```
+
+```tsx
+import { useIndexedDBContext } from 'react-idb-toolkit';
+
+const { loading, setItem, getItem, deleteItem, getAll, keys, clear } =
+  useIndexedDBContext();
+
+useEffect(() => {
+  if (!loading) {
+    setItem('demoStore', 'userName', 'demo');
+  }
+}, [loading]);
+```
+
+### ⚙️ Provider Options
+
+```ts
+interface IndexedDBOptions {
+  dbName: string;       // Database name
+  version?: number;     // Database version, default is 1
+  storeNames: string[]; // List of object store names
+}
+
+interface IndexedDBProviderProps {
+  children: ReactNode;
+  options: IndexedDBOptions;
+}
+```
+
+### 📦 Context Return Values
+
+```ts
+interface UseIndexedDBReturn {
+  loading: boolean;
+  getItem: <T>(storeName: string, key: IDBValidKey) => Promise<T | undefined>;
+  setItem: <T>(storeName: string, key: IDBValidKey, value: T) => Promise<void>;
+  deleteItem: (storeName: string, key: IDBValidKey) => Promise<void>;
+  clear: (storeName: string) => Promise<void>;
+  getAll: <T>(storeName: string) => Promise<T[] | undefined>;
+  keys: (storeName: string) => Promise<IDBValidKey[] | undefined>;
+}
+```
+
 ## 🛠️ Utils Usage
 
 [View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBUtils)
@@ -335,6 +334,10 @@ Start an interactive Storybook playground with:
 npm run storybook
 ```
 
+<p align="center">
+    <img src="./source/20250519-192026.jpg" alt="Logo" height="350px" >
+</p>
+
 You can:
 
 * Add key/value data manually
@@ -356,14 +359,13 @@ npm install
 # Run tests
 npm test
 
-# Start Storybook
-npm run storybook
+# Start Demo
+npm run dev:demo
 ```
 
 <p align="center">
-    <img src="./source/20250519-192026.jpg" alt="Logo" height="350px" >
-    <img src="./source/20250519-192637.jpg" alt="Logo" height="350px" >
     <img src="./source/20250519-192643.jpg" alt="Logo" height="500px" >
+    <img src="./source/20250519-192855.gif" alt="Logo" height="500px" >
 </p>
 
 ---

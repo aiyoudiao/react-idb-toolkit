@@ -7,10 +7,10 @@
 > ⚛️ 一个优雅且易于使用的 React 工具包，用于通过 IndexedDB 管理本地结构化数据，基于 [idb](https://github.com/jakearchibald/idb) 构建。  
 > 一个简单、轻量、易用的 React Hook，用于在浏览器中通过 IndexedDB 存储结构化数据。支持多 store 初始化，支持常见的 `get/set/delete/clear` 操作，并有良好的 TypeScript 类型支持与测试用例。
 
-![npm](https://img.shields.io/npm/v/react-idb-toolkit?color=blue)  
-![license](https://img.shields.io/github/license/aiyoudiao/react-idb-toolkit)  
-![issues](https://img.shields.io/github/issues/aiyoudiao/react-idb-toolkit)  
-![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit)
+![npm](https://img.shields.io/npm/v/react-idb-toolkit?color=blue)
+![license](https://img.shields.io/github/license/aiyoudiao/react-idb-toolkit)
+![issues](https://img.shields.io/github/issues/aiyoudiao/react-idb-toolkit)
+<!-- ![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit) -->
 
 
 [访问示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html)
@@ -19,9 +19,6 @@
 
 <p align="center">
     <img src="./source/20250512-192509.gif" alt="Logo" height="400px" >
-    <img src="./source/20250519-192855.gif" alt="Logo" height="400px" >
-    <img src="./source/20250513-180221.jpg" alt="Logo" height="500px" >
-    <img src="./source/20250519-192240.jpg" alt="Logo" height="500px" >
 </p>
 
 ---
@@ -47,114 +44,6 @@ yarn add react-idb-toolkit
 * 📦 除 `idb` 外无其他依赖
 
 ---
-
-## 🛠️ Hooks 使用示例
-
-[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB)
-
-
-```tsx
-import { useIndexedDB } from 'react-idb-toolkit';
-
-const { loading, setItem, getItem, deleteItem, clear, getAll, keys } = useIndexedDB({
-  dbName: 'myDatabase',
-  storeNames: ['myStore'],
-});
-
-useEffect(() => {
-  if (!loading) {
-    setItem('myStore', 'userName', 'demo');
-  }
-}, [loading]);
-```
-
-### ⚙️ Hook 参数
-
-```ts
-interface UseIndexedDBOptions {
-  dbName: string;       // 数据库名称
-  version?: number;     // 数据库版本，默认为 1
-  storeNames: string[]; // 要创建的 object store 名称数组
-}
-```
-
-### 📦 Hook 返回值
-
-```ts
-interface UseIndexedDBReturn {
-  loading: boolean; // 是否仍在初始化过程中
-  getItem<T>(store, key): Promise<T | undefined>;
-  setItem<T>(store, key, value): Promise<void>;
-  deleteItem(store, key): Promise<void>;
-  clear(store): Promise<void>;
-  getAll<T>(store): Promise<T[]>;
-  keys(store): Promise<IDBValidKey[]>;
-}
-```
-
-
-## 🛠️ Context 使用示例
-
-
-[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext)
-
-
-
-```tsx
-import { IndexedDBProvider } from 'react-idb-toolkit';
-
-<IndexedDBProvider
-  options={{
-    dbName: "storybook-db",
-    storeNames: ["demoStore"],
-  }}
->
-  <PlaygroundContent />
-</IndexedDBProvider>
-```
-
-
-```tsx
-import { useIndexedDBContext } from 'react-idb-toolkit';
-
-const { loading, setItem, getItem, deleteItem, getAll, keys, clear } =
-  useIndexedDBContext();
-
-useEffect(() => {
-  if (!loading) {
-    setItem('demoStore', 'userName', 'demo');
-  }
-}, [loading]);
-```
-
-### ⚙️ Provider 参数
-
-```ts
-interface IndexedDBOptions {
-  dbName: string;
-  version?: number;
-  storeNames: string[];
-}
-
-interface IndexedDBProviderProps {
-  children: ReactNode;
-  options: IndexedDBOptions;
-}
-```
-
-### 📦 Context 返回值
-
-```ts
-interface UseIndexedDBReturn {
-  loading: boolean; // 是否仍在初始化过程中
-  getItem<T>(store, key): Promise<T | undefined>;
-  setItem<T>(store, key, value): Promise<void>;
-  deleteItem(store, key): Promise<void>;
-  clear(store): Promise<void>;
-  getAll<T>(store): Promise<T[]>;
-  keys(store): Promise<IDBValidKey[]>;
-}
-```
 
 
 ## 🛠️ 超级简单的 Hooks 使用示例
@@ -277,6 +166,113 @@ interface UseIndexedDBStateContextReturn<T> {
 ```
 
 
+## 🛠️ Hooks 使用示例
+
+[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB)
+
+
+```tsx
+import { useIndexedDB } from 'react-idb-toolkit';
+
+const { loading, setItem, getItem, deleteItem, clear, getAll, keys } = useIndexedDB({
+  dbName: 'myDatabase',
+  storeNames: ['myStore'],
+});
+
+useEffect(() => {
+  if (!loading) {
+    setItem('myStore', 'userName', 'demo');
+  }
+}, [loading]);
+```
+
+### ⚙️ Hook 参数
+
+```ts
+interface UseIndexedDBOptions {
+  dbName: string;       // 数据库名称
+  version?: number;     // 数据库版本，默认为 1
+  storeNames: string[]; // 要创建的 object store 名称数组
+}
+```
+
+### 📦 Hook 返回值
+
+```ts
+interface UseIndexedDBReturn {
+  loading: boolean; // 是否仍在初始化过程中
+  getItem<T>(store, key): Promise<T | undefined>;
+  setItem<T>(store, key, value): Promise<void>;
+  deleteItem(store, key): Promise<void>;
+  clear(store): Promise<void>;
+  getAll<T>(store): Promise<T[]>;
+  keys(store): Promise<IDBValidKey[]>;
+}
+```
+
+
+## 🛠️ Context 使用示例
+
+
+[预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext)
+
+
+
+```tsx
+import { IndexedDBProvider } from 'react-idb-toolkit';
+
+<IndexedDBProvider
+  options={{
+    dbName: "storybook-db",
+    storeNames: ["demoStore"],
+  }}
+>
+  <PlaygroundContent />
+</IndexedDBProvider>
+```
+
+
+```tsx
+import { useIndexedDBContext } from 'react-idb-toolkit';
+
+const { loading, setItem, getItem, deleteItem, getAll, keys, clear } =
+  useIndexedDBContext();
+
+useEffect(() => {
+  if (!loading) {
+    setItem('demoStore', 'userName', 'demo');
+  }
+}, [loading]);
+```
+
+### ⚙️ Provider 参数
+
+```ts
+interface IndexedDBOptions {
+  dbName: string;
+  version?: number;
+  storeNames: string[];
+}
+
+interface IndexedDBProviderProps {
+  children: ReactNode;
+  options: IndexedDBOptions;
+}
+```
+
+### 📦 Context 返回值
+
+```ts
+interface UseIndexedDBReturn {
+  loading: boolean; // 是否仍在初始化过程中
+  getItem<T>(store, key): Promise<T | undefined>;
+  setItem<T>(store, key, value): Promise<void>;
+  deleteItem(store, key): Promise<void>;
+  clear(store): Promise<void>;
+  getAll<T>(store): Promise<T[]>;
+  keys(store): Promise<IDBValidKey[]>;
+}
+```
 
 ## 🛠️ Utils 使用示例
 
@@ -354,6 +350,9 @@ npm test
 ```bash
 npm run storybook
 ```
+<p align="center">
+  <img src="./source/20250519-192026.jpg" alt="Logo" height="350px" >
+</p>
 
 你可以在 Playground 中：
 
@@ -376,15 +375,14 @@ npm install
 # 运行测试
 npm test
 
-# 启动 Storybook
-npm run storybook
+# 运行示例
+npm run dev:demo
 ```
 
 
 <p align="center">
-    <img src="./source/20250519-192026.jpg" alt="Logo" height="350px" >
     <img src="./source/20250519-192637.jpg" alt="Logo" height="350px" >
-    <img src="./source/20250519-192643.jpg" alt="Logo" height="500px" >
+    <img src="./source/20250519-192855.gif" alt="Logo" height="500px" >
 </p>
 
 
