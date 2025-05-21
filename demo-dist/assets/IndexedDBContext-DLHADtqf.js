@@ -1,0 +1,1 @@
+import{j as s,r as t}from"./index-CP7TzrjQ.js";import{u as d}from"./useIndexedDB-B0k12vPk.js";const n=t.createContext(null),a=({options:e,children:r})=>{const o=d(e);return s.jsx(n.Provider,{value:o,children:r})},i=()=>{const e=t.useContext(n);if(!e)throw new Error("useIndexedDBContext must be used within an IndexedDBProvider");return e};export{a as I,i as u};
