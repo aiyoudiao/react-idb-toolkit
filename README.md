@@ -43,7 +43,7 @@ yarn add react-idb-toolkit
 
 ## 🛠️ Supper Simple Hook Usage
 
-[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDBState)
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDBState) | [View Code](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/UseIndexedDBState.tsx)
 
 
 ```tsx
@@ -97,7 +97,7 @@ interface UseIndexedDBStateOptions<T> {
 
 ## 🛠️ Supper Simple Context Usage
 
-[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBStateContext)
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBStateContext) | [View Code](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/IndexedDBStateContext.tsx)
 
 ```tsx
 import {
@@ -159,7 +159,7 @@ interface UseIndexedDBStateContextReturn<T> {
 
 ## 🛠️ Hook Usage
 
-[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB)
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB) | [View Code](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/UseIndexedDB.tsx)
 
 ```tsx
 import { useIndexedDB } from 'react-idb-toolkit';
@@ -202,7 +202,7 @@ interface UseIndexedDBReturn {
 
 ## 🛠️ Context Usage
 
-[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext)
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext) | [View Code](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/IndexedDBContext.tsx)
 
 
 ```tsx
@@ -262,7 +262,7 @@ interface UseIndexedDBReturn {
 
 ## 🛠️ Utils Usage
 
-[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBUtils)
+[View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBUtils) | [View Code](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/IndexedDBUtils.tsx)
 
 ```tsx
 import { initIndexedDB, getIndexedDBHelper } from "./toolkit";

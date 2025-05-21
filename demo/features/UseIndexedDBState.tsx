@@ -30,6 +30,7 @@ export const BasicUsage = () => {
         onChange={(e) => setValue(e.target.value)}
         disabled={loading}
       />
+      <Card className="p-4 overflow-auto break-words">{value}</Card>
       <div className="flex gap-2">
         <Button onClick={handleAlert}>Show Current Value</Button>
         <Button

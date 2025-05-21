@@ -1,6 +1,6 @@
 {
   "name": "react-idb-toolkit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "⚛️ Elegant and easy-to-use React toolkit for managing local data with IndexedDB, powered by [idb](https://github.com/jakearchibald/idb).",
   "main": "dist/index.umd.js",
   "module": "dist/index.js",
