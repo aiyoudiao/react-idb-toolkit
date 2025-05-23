@@ -1,17 +1,15 @@
-
 # 🚀 react-idb-toolkit
 
 [English](./README.md) | [简体中文](./README.CN.md)
 
-
-> ⚛️ 一个优雅且易于使用的 React 工具包，用于通过 IndexedDB 管理本地结构化数据，基于 [idb](https://github.com/jakearchibald/idb) 构建。  
+> ⚛️ 一个优雅且易于使用的 React 工具包，用于通过 IndexedDB 管理本地结构化数据，基于 [idb](https://github.com/jakearchibald/idb) 构建。
 > 一个简单、轻量、易用的 React Hook，用于在浏览器中通过 IndexedDB 存储结构化数据。支持多 store 初始化，支持常见的 `get/set/delete/clear` 操作，并有良好的 TypeScript 类型支持与测试用例。
 
 ![npm](https://img.shields.io/npm/v/react-idb-toolkit?color=blue)
 ![license](https://img.shields.io/github/license/aiyoudiao/react-idb-toolkit)
 ![issues](https://img.shields.io/github/issues/aiyoudiao/react-idb-toolkit)
-<!-- ![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit) -->
 
+<!-- ![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit) -->
 
 [访问示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html)
 |
@@ -22,7 +20,6 @@
 </p>
 
 ---
-
 
 ## 📦 安装
 
@@ -45,14 +42,9 @@ yarn add react-idb-toolkit
 
 ---
 
-
 ## 🛠️ 超级简单的 Hooks 使用示例
 
-
 [预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDBState) | [查看代码](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/UseIndexedDBState.tsx)
-
-
-
 
 ```tsx
 import { useIndexedDBState } from 'react-idb-toolkit';
@@ -138,7 +130,6 @@ export const SingleContextUsage = () => (
 
 ```
 
-
 ### ⚙️ 超级简单的 Provider 参数
 
 ```ts
@@ -165,11 +156,9 @@ interface UseIndexedDBStateContextReturn<T> {
 }
 ```
 
-
 ## 🛠️ Hooks 使用示例
 
 [预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB) | [查看代码](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/UseIndexedDB.tsx)
-
 
 ```tsx
 import { useIndexedDB } from 'react-idb-toolkit';
@@ -210,13 +199,9 @@ interface UseIndexedDBReturn {
 }
 ```
 
-
 ## 🛠️ Context 使用示例
 
-
 [预览示例](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext) | [查看代码](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/IndexedDBContext.tsx)
-
-
 
 ```tsx
 import { IndexedDBProvider } from 'react-idb-toolkit';
@@ -230,7 +215,6 @@ import { IndexedDBProvider } from 'react-idb-toolkit';
   <PlaygroundContent />
 </IndexedDBProvider>
 ```
-
 
 ```tsx
 import { useIndexedDBContext } from 'react-idb-toolkit';
@@ -322,7 +306,6 @@ interface UseIndexedDBReturn {
 }
 ```
 
-
 ---
 
 ## 🧪 测试
@@ -350,6 +333,7 @@ npm test
 ```bash
 npm run storybook
 ```
+
 <p align="center">
   <img src="./source/20250519-192026.jpg" alt="Logo" height="350px" >
 </p>
@@ -373,18 +357,16 @@ cd react-idb-toolkit
 npm install
 
 # 运行测试
-npm test
+npm run test:ui
 
 # 运行示例
 npm run dev:demo
 ```
 
-
 <p align="center">
     <img src="./source/20250519-192637.jpg" alt="Logo" height="350px" >
     <img src="./source/20250519-192855.gif" alt="Logo" height="500px" >
 </p>
-
 
 ---
 

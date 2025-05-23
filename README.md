@@ -8,6 +8,7 @@
 ![npm](https://img.shields.io/npm/v/react-idb-toolkit?color=blue)
 ![license](https://img.shields.io/github/license/aiyoudiao/react-idb-toolkit)
 ![issues](https://img.shields.io/github/issues/aiyoudiao/react-idb-toolkit)
+
 <!-- ![stars](https://img.shields.io/github/stars/aiyoudiao/react-idb-toolkit) -->
 
 [Visit Example](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html) |
@@ -40,11 +41,9 @@ yarn add react-idb-toolkit
 
 ---
 
-
 ## 🛠️ Supper Simple Hook Usage
 
 [View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDBState) | [View Code](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/UseIndexedDBState.tsx)
-
 
 ```tsx
 import { useIndexedDBState } from 'react-idb-toolkit';
@@ -156,7 +155,6 @@ interface UseIndexedDBStateContextReturn<T> {
 }
 ```
 
-
 ## 🛠️ Hook Usage
 
 [View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/UseIndexedDB) | [View Code](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/UseIndexedDB.tsx)
@@ -203,7 +201,6 @@ interface UseIndexedDBReturn {
 ## 🛠️ Context Usage
 
 [View Demo](https://aiyoudiao.github.io/react-idb-toolkit/demo-dist/index.html#/IndexedDBContext) | [View Code](https://github1s.com/aiyoudiao/react-idb-toolkit/blob/HEAD/demo/features/IndexedDBContext.tsx)
-
 
 ```tsx
 import { IndexedDBProvider } from 'react-idb-toolkit';
@@ -357,7 +354,7 @@ cd react-idb-toolkit
 npm install
 
 # Run tests
-npm test
+npm run test:ui
 
 # Start Demo
 npm run dev:demo
