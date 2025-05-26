@@ -2,8 +2,11 @@
 
 [English](./README.md) | [简体中文](./README.CN.md)
 
-> ⚛️ 一个优雅且易于使用的 React 工具包，用于通过 IndexedDB 管理本地结构化数据，基于 [idb](https://github.com/jakearchibald/idb) 构建。
-> 一个简单、轻量、易用的 React Hook，用于在浏览器中通过 IndexedDB 存储结构化数据。支持多 store 初始化，支持常见的 `get/set/delete/clear` 操作，并有良好的 TypeScript 类型支持与测试用例。
+
+> DeepWiki 知识库文档 -> [react-idb-toolkit](https://deepwiki.com/aiyoudiao/react-idb-toolkit)  
+> ⚛️ 一个优雅且易于使用的 React 工具包，用于通过 IndexedDB 管理本地结构化数据，基于 [idb](https://github.com/jakearchibald/idb) 构建。  
+> 一个简单、轻量、易用的 React Hook，用于在浏览器中通过 IndexedDB 存储结构化数据。支持多 store 初始化，支持常见的 `get/set/delete/clear` 操作，并有良好的 TypeScript 类型支持与测试用例。  
+
 
 ![npm](https://img.shields.io/npm/v/react-idb-toolkit?color=blue)
 ![license](https://img.shields.io/github/license/aiyoudiao/react-idb-toolkit)
