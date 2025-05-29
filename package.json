@@ -1,6 +1,6 @@
 {
   "name": "react-idb-toolkit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "⚛️ Elegant and easy-to-use React toolkit for managing local data with IndexedDB, powered by [idb](https://github.com/jakearchibald/idb).",
   "main": "dist/index.umd.js",
   "module": "dist/index.js",
@@ -24,6 +24,11 @@
   "bugs": {
     "url": "https://github.com/aiyoudiao/react-idb-toolkit/issues"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "homepage": "https://github.com/aiyoudiao/react-idb-toolkit#readme",
   "scripts": {
     "build": "father build",
@@ -36,7 +41,8 @@
     "build:demo": "vite build",
     "deploy": "node ./node_modules/gh-pages/bin/gh-pages-clean.js && gh-pages -d examples",
     "build:all": "npm run build && npm run build:demo && npm run build:storybook",
-    "deploy:all": "npm run build:all && npm run deploy"
+    "deploy:all": "npm run build:all && npm run deploy",
+    "r": "release-it"
   },
   "devDependencies": {
     "@radix-ui/react-collapsible": "^1.1.10",
@@ -74,6 +80,7 @@
     "tailwind-variants": "^1.0.0",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
+    "release-it": "18.1.2",
     "typescript": "^5.0.0",
     "vite": "^6.3.5",
     "vitest": "^3.1.3"
